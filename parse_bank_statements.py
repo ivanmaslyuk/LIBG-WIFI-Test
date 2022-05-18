@@ -1,4 +1,5 @@
 from combine import StatementsCombiner
+from export import CSVExporter
 from model import Bank
 
 
@@ -11,3 +12,6 @@ if __name__ == "__main__":
 
     combiner = StatementsCombiner()
     statements = combiner.combine(files)
+
+    exporter = CSVExporter("results.csv")
+    exporter.export_statements(statements)

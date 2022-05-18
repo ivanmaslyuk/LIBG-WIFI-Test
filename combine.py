@@ -26,5 +26,5 @@ class StatementsCombiner:
             for row in csv_reader:
                 if not row:
                     continue
-                
+
                 yield {header[idx]: value for idx, value in enumerate(row)}
