@@ -1,18 +1,13 @@
-import dataclasses
-import datetime
-import enum
-from types import TracebackType
+from combine import StatementsCombiner
+from model import Bank
 
 
-class TransactionType(enum.Enum):
-    ADD = "ADD"
-    REMOVE = "remove"
+if __name__ == "__main__":
+    files = [
+        ("bank1.csv", Bank.BANK1),
+        ("bank2.csv", Bank.BANK2),
+        ("bank3.csv", Bank.BANK3),
+    ]
 
-
-@dataclasses.dataclass
-class Statement:
-    date: datetime.date
-    transaction: TracebackType
-    amount: float
-    to: int
-    source: int
+    combiner = StatementsCombiner()
+    statements = combiner.combine(files)
