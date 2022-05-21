@@ -6,21 +6,17 @@ from model import Statement
 CSV_HEADER = ["date", "transaction", "amount", "to", "from"]
 
 
-class CSVExporter:
-    def __init__(self, filename: str) -> None:
-        self.filename = filename
+def export_statements_to_csv(filename, results: List[Statement]):
+    with open(filename, "w") as file:
+        csv_writer = csv.writer(file)
 
-    def export_statements(self, results: List[Statement]):
-        with open(self.filename, "w") as file:
-            csv_writer = csv.writer(file)
+        csv_writer.writerow(CSV_HEADER)
 
-            csv_writer.writerow(CSV_HEADER)
-            
-            for statement in results:
-                csv_writer.writerow([
-                    statement.date.strftime("%d %b %Y"),
-                    statement.transaction.value,
-                    "%00.2f" % statement.amount,
-                    statement.to,
-                    statement.source,
-                ])
+        for statement in results:
+            csv_writer.writerow([
+                statement.date.strftime("%d %b %Y"),
+                statement.transaction.value,
+                "%00.2f" % statement.amount,
+                statement.to,
+                statement.source,
+            ])

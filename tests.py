@@ -1,16 +1,14 @@
 from datetime import date
 
 from parse import (
-    Bank1StatementParser,
-    Bank2StatementParser,
-    Bank3StatementParser,
+    parse_bank1_statement,
+    parse_bank2_statement,
+    parse_bank3_statement,
 )
 from model import Statement, TransactionType
 
 
 def test_bank1_parsing():
-    parser = Bank1StatementParser()
-
     expected = Statement(
         date=date(2019, 10, 1),
         transaction=TransactionType.REMOVE,
@@ -19,7 +17,7 @@ def test_bank1_parsing():
         source=198,
     )
 
-    actual = parser.parse({
+    actual = parse_bank1_statement({
         "timestamp": "Oct 1 2019",
         "type": "remove",
         "amount": "99.10",
@@ -31,8 +29,6 @@ def test_bank1_parsing():
 
 
 def test_bank2_parsing():
-    parser = Bank2StatementParser()
-
     expected = Statement(
         date=date(2019, 10, 4),
         transaction=TransactionType.ADD,
@@ -41,7 +37,7 @@ def test_bank2_parsing():
         source=188,
     )
 
-    actual = parser.parse({
+    actual = parse_bank2_statement({
         "date": "04-10-2019",
         "transaction": "add",
         "amounts": "2123.99",
@@ -53,8 +49,6 @@ def test_bank2_parsing():
 
 
 def test_bank3_parsing():
-    parser = Bank3StatementParser()
-
     expected = Statement(
         date=date(2019, 10, 6),
         transaction=TransactionType.ADD,
@@ -63,7 +57,7 @@ def test_bank3_parsing():
         source=188,
     )
 
-    actual = parser.parse({
+    actual = parse_bank3_statement({
         "date_readable": "6 Oct 2019",
         "type": "add",
         "euro": "1060",
